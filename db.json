@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "email": "me@gmail.com",
+      "password": "$2b$10$4Z/tr/XrtHe51AjVW4OL.OiurwyI2wozZk9XGVo3JLBqVlsQrxxgG",
+      "name": "John",
+      "surname": "Doe",
+      "cellNumber": "0123456789",
+      "id": "p6TEE8ZK54c"
+    },
+    {
+      "email": "test@example.com",
+      "password": "$2b$10$Vdxgw/tZZ0jdn.1QLncz3.SOxGbB9SbQiKrViB7SuenI/OMlu0kh6",
+      "name": "Karabo",
+      "surname": "Lucus",
+      "cellNumber": "0987654321",
+      "id": "MtCkbex02WY"
+    }
+  ],
+  "shoppingItems": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}
