@@ -59,8 +59,7 @@
   flex: 1;
 }
 
-.searchContainer label,
-.sortContainer label {
+.searchContainer label, .sortContainer label {
   display: block;
   margin-bottom: 7px;
   font-size: 0.9rem;
@@ -68,8 +67,7 @@
   color: #334155;
 }
 
-.searchContainer input,
-.sortContainer select {
+.searchContainer input, .sortContainer select {
   width: 100%;
   min-height: 42px;
   padding: 0 12px;
@@ -202,25 +200,20 @@
   .content {
     padding: 25px 15px;
   }
-
   .header {
     align-items: flex-start;
     flex-direction: column;
   }
-
   .addButton {
     width: 100%;
   }
-
   .controls {
     flex-direction: column;
     align-items: stretch;
   }
-
   .sortContainer {
     width: 100%;
   }
-
   .listGrid {
     grid-template-columns: 1fr;
   }
