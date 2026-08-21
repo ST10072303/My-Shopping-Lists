@@ -52,6 +52,13 @@
           "quantity": 1,
           "category": "Vegetables",
           "image": "https://th.bing.com/th/id/OIP.eJfELhrS5U_6guz41uzEdQHaE7?r=0&o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"
+        },
+        {
+          "id": "52bea409-c0d6-400e-8184-28ff9c94ef0b",
+          "name": "Milk",
+          "quantity": 8,
+          "category": "Dairy",
+          "image": "https://tse4.mm.bing.net/th/id/OIP.TpPz17o2h6gt9DKZD5AFpwHaHa?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
         }
       ]
     },

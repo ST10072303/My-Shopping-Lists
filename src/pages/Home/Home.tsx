@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch, } from "../../store/store";
-import { addShoppingList, setError, setShoppingLists, setLoading,
+import {
+  addShoppingList, setError, setShoppingLists, setLoading,
   updateShoppingList as updateShoppingListState, deleteShoppingList as deleteShoppingListState,
 } from "../../store/shoppingListSlice";
 import { createShoppingList, getShoppingLists, updateShoppingList, deleteShoppingList } from "../../services/shoppingListService";
@@ -16,6 +17,7 @@ export const Home = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchKeyword = searchParams.get("search") ?? "";
+  const sortKeyword = searchParams.get("sort") ?? "";
   const [editingList, setEditingList] = useState<ShoppingList | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
@@ -23,19 +25,46 @@ export const Home = () => {
   const loading = useSelector((state: RootState) => state.shoppingLists.loading);
   const error = useSelector((state: RootState) => state.shoppingLists.error);
   //search feature
-  const filteredShoppingLists = shoppingLists.map((list) => {
-      if (!searchKeyword.trim()) {
-        return list;
+  const filteredShoppingLists =
+  shoppingLists
+    .map((list) => {
+      let filteredItems = list.items;
+
+      if (searchKeyword.trim()) {
+        filteredItems = filteredItems.filter(
+          (item) =>
+            item.name
+              .toLowerCase()
+              .includes(
+                searchKeyword.toLowerCase()
+              )
+        );
       }
 
-      const filteredItems = list.items.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchKeyword.toLowerCase())
-      );
-      return {...list, items: filteredItems,};
-    })
-    .filter((list) => list.items.length > 0);
+      if (sortKeyword === "name") {
+        filteredItems = [...filteredItems].sort(
+          (a, b) =>
+            a.name.localeCompare(b.name)
+        );
+      }
 
+      if (sortKeyword === "category") {
+        filteredItems = [...filteredItems].sort(
+          (a, b) =>
+            a.category.localeCompare(
+              b.category
+            )
+        );
+      }
+
+      return {
+        ...list,
+        items: filteredItems,
+      };
+    })
+    .filter(
+      (list) => list.items.length > 0
+    );
   //create function
   const handleSaveShoppingList = async (shoppingList: ShoppingList) => {
     if (!user) {
@@ -71,7 +100,7 @@ export const Home = () => {
   };
   //delete function
   const handleDeleteShoppingList = async (id: string) => {
-  const confirmed = window.confirm("Are you sure you want to delete this shopping list?");
+    const confirmed = window.confirm("Are you sure you want to delete this shopping list?");
 
     if (!confirmed) {
       return;
@@ -95,7 +124,6 @@ export const Home = () => {
     if (!user) {
       return;
     }
-
     try {
       dispatch(setLoading(true));
       dispatch(setError(null));
@@ -134,7 +162,6 @@ export const Home = () => {
         <section className={styles.controls}>
           <div className={styles.searchContainer}>
             <label htmlFor="shoppingSearch">Search shopping items</label>
-
             <input id="shoppingSearch" type="search" value={searchKeyword} placeholder="Type to start searching..." onChange={(event) => {
               const value = event.target.value;
               if (value.trim()) {
@@ -142,18 +169,29 @@ export const Home = () => {
               } else {
                 setSearchParams({});
               }
-            }}/>
+            }} />
           </div>
-
+          {/*sorting*/}
           <div className={styles.sortContainer}>
-            <label htmlFor="sort">Sort by</label>
-            <select id="sort">
+            <label htmlFor="shoppingSort">Sort by</label>
+            <select id="shoppingSort" value={sortKeyword} onChange={(event) => {
+              const value = event.target.value;
+              const newParams = new URLSearchParams(searchParams);
+
+              if (value) {
+                newParams.set("sort", value);
+              } else {
+                newParams.delete("sort");
+              }
+              setSearchParams(newParams);
+            }}>
+              <option value="">Date Added</option>
               <option value="name">Name</option>
               <option value="category">Category</option>
             </select>
           </div>
         </section>
-
+            {/*shopping lists section */}
         <section className={styles.listSection}>
           <div className={styles.sectionHeader}>
             <h2>Shopping Lists</h2>
@@ -166,7 +204,7 @@ export const Home = () => {
             {!loading && error && (<p>{error}</p>)}
 
             {!loading && !error && searchKeyword && filteredShoppingLists.length === 0 && (
-            <p>No shopping items found for "{searchKeyword}".</p>)}
+              <p>No shopping items found for "{searchKeyword}".</p>)}
 
             {!loading && !error && shoppingLists.length === 0 && (
               <p>You haven't created any shopping lists yet.</p>)}
