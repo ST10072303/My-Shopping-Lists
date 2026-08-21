@@ -18,5 +18,22 @@
     }
   ],
   "shoppingItems": [],
+  "shoppingLists": [
+    {
+      "id": "cWXrx6yYNQ4",
+      "userId": "MtCkbex02WY",
+      "name": "Baking ingredients",
+      "notes": "Bread baking item for my banana bread",
+      "items": [
+        {
+          "id": "ae77c2e8-6edf-46c1-bd22-b2680c1606e4",
+          "name": "Eggs",
+          "quantity": 6,
+          "category": "Groceries",
+          "image": "https://www.southernliving.com/thmb/lYT5O1D5DdMfVpawNe5Pis0Tpf0=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Eggs_002_preview-8d532a48790b4a5190e513de08678e7f.jpg"
+        }
+      ]
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

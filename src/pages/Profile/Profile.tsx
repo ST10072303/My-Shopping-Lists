@@ -4,7 +4,7 @@ import styles from "./Profile.module.css";
 export const Profile = () => {
   return (
     <div className={styles.profile}>
-      <Navbar />
+      <Navbar /><br /><br />
 
       <main className={styles.content}>
         <h1>Profile</h1>

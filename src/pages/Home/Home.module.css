@@ -4,7 +4,224 @@
 }
 
 .content {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 30px;
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.addButton {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #1d4ed8;
+}
+
+.controls {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 35px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.searchContainer {
+  flex: 1;
+}
+
+.searchContainer label,
+.sortContainer label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.searchContainer input,
+.sortContainer select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.sortContainer {
+  width: 180px;
+}
+
+.listSection {
+  width: 100%;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.sectionHeader span {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.listGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 22px;
+
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.cardHeader h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.cardHeader span {
+  padding: 5px 9px;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.card > p {
+  margin: 12px 0 20px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #f8fafc;
+  border-radius: 7px;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemImage {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.item span:last-child {
+  font-weight: 600;
+  color: #475569;
+}
+
+.cardActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cardActions button {
+  flex: 1;
+  padding: 9px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.cardActions button:hover {
+  background-color: #f8fafc;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 25px 15px;
+  }
+
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sortContainer {
+    width: 100%;
+  }
+
+  .listGrid {
+    grid-template-columns: 1fr;
+  }
 }

@@ -22,13 +22,9 @@ export const registerUser = async (
   }
 
   const hashedPassword = await bcrypt.hash(user.password, 10);
-
   const newUser = {...user, password: hashedPassword,};
-
   const response = await axios.post<User>(
-    `${API_URL}/users`,
-    newUser
-  );
+    `${API_URL}/users`, newUser);
 
   return response.data;
 };

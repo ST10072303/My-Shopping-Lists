@@ -20,7 +20,7 @@ export const Navbar = () => {
 
   return (
     <header className={styles.navbar}>
-      <div className={styles.logo}>🛒 My Shopping</div>
+      <div className={styles.logo}>🛒 My Shopping's</div>
 
       <nav className={styles.nav}>
         <NavLink to="/home" className={({ isActive }) =>

@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ShoppingList } from "../types/ShoppingItem";
 
-
 interface ShoppingListState {
   lists: ShoppingList[];
   loading: boolean;
@@ -38,8 +37,9 @@ const shoppingListSlice = createSlice({
       }
     },
 
-    deleteShoppingList: (state, action: PayloadAction<string> ) => {
-      state.lists = state.lists.filter((list) => list.id !== action.payload
+    deleteShoppingList: (state, action: PayloadAction<string>) => {
+      state.lists = state.lists.filter(
+        (list) => list.id !== action.payload
       );
     },
 
