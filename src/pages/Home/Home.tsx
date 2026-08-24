@@ -24,11 +24,9 @@ export const Home = () => {
   const loading = useSelector((state: RootState) => state.shoppingLists.loading);
   const error = useSelector((state: RootState) => state.shoppingLists.error);
   //search feature
-  const filteredShoppingLists =
-  shoppingLists
+  const filteredShoppingLists = shoppingLists
     .map((list) => {
       let filteredItems = list.items;
-
       if (searchKeyword.trim()) {
         filteredItems = filteredItems.filter(
           (item) => item.name.toLowerCase()
@@ -108,6 +106,23 @@ export const Home = () => {
         setError("Unable to delete shopping list. Please try again."));
     }
   };
+  //share function
+  const handleShareShoppingList = async (list: ShoppingList) => {
+  const shareUrl = `${window.location.origin}/share/${list.id}`;
+  const shareData = {title: list.name, text: `Check out my shopping list: ${list.name}`,url: shareUrl,};
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+
+      window.alert("Shopping list link copied to clipboard.");
+    }
+  } catch (error) {
+    console.error("Failed to share shopping list:",error);
+  }
+};
   //Read function
   const loadShoppingLists = async () => {
     if (!user) {
@@ -223,13 +238,13 @@ export const Home = () => {
                 <div className={styles.cardActions}>
                   <button type="button" onClick={() => setEditingList(list)}>Edit</button>
                   <button type="button" onClick={() => handleDeleteShoppingList(list.id)}>Delete</button>
+                  <button type="button" onClick={() => handleShareShoppingList(list)}>Share</button>
                 </div>
               </article>
             ))}
           </div>
         </section>
       </main>
-
       {showAddForm && (
         <AddShoppingList onCancel={() => setShowAddForm(false)} onSave={handleSaveShoppingList} />)}
 

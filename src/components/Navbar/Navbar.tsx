@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/authSlice";
 import type { RootState, AppDispatch } from "../../store/store";
+import { TiShoppingCart } from "react-icons/ti";
+
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -14,13 +16,12 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-
     navigate("/");
   };
 
   return (
     <header className={styles.navbar}>
-      <div className={styles.logo}>🛒 My Shopping's</div>
+      <div className={styles.logo}> <TiShoppingCart /> My Shopping's</div>
 
       <nav className={styles.nav}>
         <NavLink to="/home" className={({ isActive }) =>

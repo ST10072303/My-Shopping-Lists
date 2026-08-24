@@ -73,7 +73,6 @@ export interface UpdateCredentialsData {
 }
 
 export const updateUserCredentials = async (userId: string, credentials: UpdateCredentialsData): Promise<User> => {
-  
   const existingUsers = await axios.get<User[]>(`${API_URL}/users`,
     {
       params: {email: credentials.email,},
