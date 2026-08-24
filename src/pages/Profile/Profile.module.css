@@ -1,10 +1,94 @@
-.profile {
+.container {
   min-height: 100vh;
-  background-color: #f8fafc;
+  padding: 40px 20px;
 }
 
-.content {
-  max-width: 1200px;
+.profileCard {
+  width: 100%;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 40px 30px;
+  padding: 30px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin-bottom: 8px;
+}
+
+.header p {
+  margin: 0;
+}
+
+.profileDetails {
+  display: grid;
+  gap: 18px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.value {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.actions {
+  margin-top: 30px;
+}
+
+.actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-weight: 600;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.error {
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #b91c1c;
 }

@@ -1,6 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authService";
+import styles from "./Register.module.css"
 
 export const Register = () => {
   const navigate = useNavigate();

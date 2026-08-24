@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch, } from "../../store/store";
-import {
-  addShoppingList, setError, setShoppingLists, setLoading,
+import {addShoppingList, setError, setShoppingLists, setLoading,
   updateShoppingList as updateShoppingListState, deleteShoppingList as deleteShoppingListState,
 } from "../../store/shoppingListSlice";
 import { createShoppingList, getShoppingLists, updateShoppingList, deleteShoppingList } from "../../services/shoppingListService";
@@ -32,12 +31,8 @@ export const Home = () => {
 
       if (searchKeyword.trim()) {
         filteredItems = filteredItems.filter(
-          (item) =>
-            item.name
-              .toLowerCase()
-              .includes(
-                searchKeyword.toLowerCase()
-              )
+          (item) => item.name.toLowerCase()
+              .includes(searchKeyword.toLowerCase())
         );
       }
 
@@ -50,17 +45,11 @@ export const Home = () => {
 
       if (sortKeyword === "category") {
         filteredItems = [...filteredItems].sort(
-          (a, b) =>
-            a.category.localeCompare(
-              b.category
-            )
+          (a, b) => a.category.localeCompare(b.category)
         );
       }
 
-      return {
-        ...list,
-        items: filteredItems,
-      };
+      return {...list, items: filteredItems,};
     })
     .filter(
       (list) => list.items.length > 0
@@ -129,7 +118,6 @@ export const Home = () => {
       dispatch(setError(null));
 
       const lists = await getShoppingLists(user.id);
-
       dispatch(setShoppingLists(lists));
     } catch (error) {
       console.error("Failed to load shopping lists:", error);
@@ -158,7 +146,7 @@ export const Home = () => {
 
           <button type="button" className={styles.addButton} onClick={() => setShowAddForm(true)}>+ Add Shopping List</button>
         </section>
-
+        {/*searching*/}
         <section className={styles.controls}>
           <div className={styles.searchContainer}>
             <label htmlFor="shoppingSearch">Search shopping items</label>
