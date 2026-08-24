@@ -92,3 +92,14 @@
   background: #fee2e2;
   color: #b91c1c;
 }
+.credentialsSection {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.credentialsView {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
