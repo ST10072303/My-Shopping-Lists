@@ -47,7 +47,7 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
       <section className={styles.modal} aria-labelledby="edit-shopping-list-title">
         <div className={styles.header}>
           <div>
-            <h2 id="edit-shopping-list-title">Edit Shopping List</h2>
+            <h2>Edit Shopping List</h2>
             <p>Update your shopping list and its items.</p>
           </div>
 
@@ -57,12 +57,12 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="editListName">List Name</label>
-            <input id="editListName" type="text" value={listName} onChange={(event) => setListName(event.target.value)}required/>
+            <input type="text" value={listName} onChange={(event) => setListName(event.target.value)}required/>
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="editNotes"> Notes <span>(Optional)</span></label>
-            <textarea id="editNotes" value={notes} onChange={(event) => setNotes(event.target.value)}rows={3}/>
+            <textarea value={notes} onChange={(event) => setNotes(event.target.value)}rows={3}/>
           </div>
 
           <div className={styles.itemSection}>
@@ -71,22 +71,22 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
             <div className={styles.itemForm}>
               <div className={styles.formGroup}>
                 <label htmlFor="editItemName">Item Name</label>
-                <input id="editItemName" type="text" value={itemName} onChange={(event) => setItemName(event.target.value)}placeholder="e.g. Milk"/>
+                <input type="text" value={itemName} onChange={(event) => setItemName(event.target.value)}placeholder="e.g. Milk"/>
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="editQuantity">Quantity</label>
-                <input id="editQuantity" type="number" min="1" value={quantity} onChange={(event) => setQuantity(Number(event.target.value))}/>
+                <input type="number" min="1" value={quantity} onChange={(event) => setQuantity(Number(event.target.value))}/>
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="editCategory">Category</label>
 
-                <select id="editCategory" value={category} onChange={(event) => setCategory(event.target.value)}>
+                <select value={category} onChange={(event) => setCategory(event.target.value)}>
                   <option value="">Select category</option>
                   <option value="Groceries">Groceries</option>
                   <option value="Dairy">Dairy</option>
-                  <option value="Fruit">Fruit</option>
+                  <option value="Fruit">Fruits</option>
                   <option value="Vegetables">Vegetables</option>
                   <option value="Bakery">Bakery</option>
                   <option value="Meat">Meat</option>
@@ -98,7 +98,7 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
 
               <div className={styles.formGroup}>
                 <label htmlFor="editImage">Image URL</label>
-                <input id="editImage" type="url" value={image} onChange={(event) => setImage(event.target.value)}placeholder="https://..."/>
+                <input type="url" value={image} onChange={(event) => setImage(event.target.value)}placeholder="https://..."/>
               </div>
             </div>
 

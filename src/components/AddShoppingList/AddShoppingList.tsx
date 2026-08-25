@@ -7,13 +7,9 @@ interface AddShoppingListProps {
   onSave: (shoppingList: ShoppingList) => void;
 }
 
-export const AddShoppingList = ({
-  onCancel,
-  onSave,
-}: AddShoppingListProps) => {
+export const AddShoppingList = ({onCancel, onSave,}: AddShoppingListProps) => {
   const [listName, setListName] = useState("");
   const [notes, setNotes] = useState("");
-
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("");
@@ -82,7 +78,7 @@ export const AddShoppingList = ({
       <section className={styles.modal} aria-labelledby="add-shopping-list-title">
         <div className={styles.header}>
           <div>
-            <h2 id="add-shopping-list-title">Add Shopping List</h2>
+            <h2>Add Shopping List</h2>
             <p>Create a list and add the items you need.</p>
           </div>
           <button type="button" className={styles.closeButton} onClick={onCancel} aria-label="Close add shopping list form">x</button>
@@ -91,14 +87,14 @@ export const AddShoppingList = ({
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="listName">List Name</label>
-            <input id="listName" type="text" value={listName}
+            <input type="text" value={listName}
               onChange={(event) => setListName(event.target.value)} placeholder="e.g. Weekly Groceries" required />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="notes"> Notes <span>(Optional)</span></label>
 
-            <textarea id="notes" value={notes} onChange={(event) => setNotes(event.target.value) }
+            <textarea value={notes} onChange={(event) => setNotes(event.target.value) }
               placeholder="Add any notes about this shopping list..." rows={3} />
           </div>
 
@@ -107,13 +103,13 @@ export const AddShoppingList = ({
             <div className={styles.itemForm}>
               <div className={styles.formGroup}>
                 <label htmlFor="itemName">Item Name </label>
-                <input id="itemName" type="text" value={itemName} onChange={(event) => setItemName(event.target.value) }
+                <input type="text" value={itemName} onChange={(event) => setItemName(event.target.value) }
                   placeholder="e.g. Milk" />
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="quantity">Quantity</label>
-                <input id="quantity" type="number" min="1" value={quantity} onChange={(event) =>
+                <input type="number" min="1" value={quantity} onChange={(event) =>
                     setQuantity(Number(event.target.value))} />
               </div>
 
@@ -137,7 +133,7 @@ export const AddShoppingList = ({
               <div className={styles.formGroup}>
                 <label htmlFor="image">Image URL</label>
 
-                <input id="image" type="url" value={image} onChange={(event) => setImage(event.target.value)}placeholder="https://..." />
+                <input type="url" value={image} onChange={(event) => setImage(event.target.value)}placeholder="https://..." />
               </div>
             </div>
 

@@ -151,15 +151,13 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
-      <Navbar /> <br /><br /><br /><br />
+      
       <main className={styles.content}>
+<Navbar /> <br /><br />
         <section className={styles.header}>
-          <div>
-            <h1>My Shopping</h1>
-            <p>Create and manage your shopping lists in one place.</p>
-          </div>
-
-          <button type="button" className={styles.addButton} onClick={() => setShowAddForm(true)}>+ Add Shopping List</button>
+            <h3>Create and manage all your shopping lists in one place.</h3>
+          
+          <button type="button" className={styles.addButton} onClick={() => setShowAddForm(true)}>+ Add New List</button>
         </section>
         {/*searching*/}
         <section className={styles.controls}>
@@ -228,6 +226,7 @@ export const Home = () => {
                       <div className={styles.itemInfo}>
                         {item.image && (<img src={item.image} alt={item.name} className={styles.itemImage} />)}
                         <span>{item.name}</span>
+                        
                       </div>
 
                       <span>{item.quantity}</span>

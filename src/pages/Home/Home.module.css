@@ -16,24 +16,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 30px;
-  margin-bottom: 35px;
+  margin-bottom: 10px;
 }
 
-.header h1 {
-  margin: 0 0 8px;
-  font-size: 2rem;
-}
-
-.header p {
-  margin: 0;
-  color: #64748b;
+.header h3 {
+margin-left: 10px;
 }
 
 .addButton {
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
-  background-color: #2563eb;
+  background-color: #00b4d8;
   color: white;
   font-size: 0.95rem;
   font-weight: 600;
@@ -147,6 +141,13 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+
+  /* Cap height to fit roughly 2.5 items before scrolling */
+  max-height: 200px; 
+  overflow-y: auto;
+  
+  /* Adds space so content doesn't collide with the scrollbar */
+  padding-right: 4px; 
 }
 
 .item {
