@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState, AppDispatch, } from "../../store/store";
-import {addShoppingList, setError, setShoppingLists, setLoading,
+import {
+  addShoppingList, setError, setShoppingLists, setLoading,
   updateShoppingList as updateShoppingListState, deleteShoppingList as deleteShoppingListState,
 } from "../../store/shoppingListSlice";
 import { createShoppingList, getShoppingLists, updateShoppingList, deleteShoppingList } from "../../services/shoppingListService";
 import type { ShoppingList } from "../../types/ShoppingItem";
 import { EditShoppingList } from "../../components/EditItemModel/EditItemModel";
+import { LuPencil, LuShare2, LuTrash2 } from "react-icons/lu";
 
 export const Home = () => {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -23,32 +25,24 @@ export const Home = () => {
   const shoppingLists = useSelector((state: RootState) => state.shoppingLists.lists);
   const loading = useSelector((state: RootState) => state.shoppingLists.loading);
   const error = useSelector((state: RootState) => state.shoppingLists.error);
-  //search feature
-  const filteredShoppingLists = shoppingLists
-    .map((list) => {
-      let filteredItems = list.items;
-      if (searchKeyword.trim()) {
-        filteredItems = filteredItems.filter(
-          (item) => item.name.toLowerCase()
-              .includes(searchKeyword.toLowerCase())
-        );
-      }
+  //search and sort feature
+  const filteredShoppingLists = shoppingLists.map((list) => {
+    let filteredItems = list.items;
+    if (searchKeyword.trim()) {
+      filteredItems = filteredItems.filter((item) => item.name.toLowerCase()
+          .includes(searchKeyword.toLowerCase())
+      );
+    }
 
-      if (sortKeyword === "name") {
-        filteredItems = [...filteredItems].sort(
-          (a, b) =>
-            a.name.localeCompare(b.name)
-        );
-      }
+    if (sortKeyword === "name") {
+      filteredItems = [...filteredItems].sort((a, b) => a.name.localeCompare(b.name));
+    }
 
-      if (sortKeyword === "category") {
-        filteredItems = [...filteredItems].sort(
-          (a, b) => a.category.localeCompare(b.category)
-        );
-      }
-
-      return {...list, items: filteredItems,};
-    })
+    if (sortKeyword === "category") {
+      filteredItems = [...filteredItems].sort((a, b) => a.category.localeCompare(b.category));
+    }
+    return { ...list, items: filteredItems, };
+  })
     .filter(
       (list) => list.items.length > 0
     );
@@ -67,7 +61,7 @@ export const Home = () => {
       console.error("Failed to create shopping list:", error);
 
       dispatch(
-        setError("Unable to create shopping list. Please try again.")
+        setError("Unable to fetch shopping list from server. Please check your internet connectivity and try again.")
       );
     }
   };
@@ -108,21 +102,21 @@ export const Home = () => {
   };
   //share function
   const handleShareShoppingList = async (list: ShoppingList) => {
-  const shareUrl = `${window.location.origin}/share/${list.id}`;
-  const shareData = {title: list.name, text: `Check out my shopping list: ${list.name}`,url: shareUrl,};
+    const shareUrl = `${window.location.origin}/share/${list.id}`;
+    const shareData = { title: list.name, text: `Check out my shopping list: ${list.name}`, url: shareUrl, };
 
-  try {
-    if (navigator.share) {
-      await navigator.share(shareData);
-    } else {
-      await navigator.clipboard.writeText(shareUrl);
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
 
-      window.alert("Shopping list link copied to clipboard.");
+        window.alert("Shopping list link copied to clipboard.");
+      }
+    } catch (error) {
+      console.error("Failed to share shopping list:", error);
     }
-  } catch (error) {
-    console.error("Failed to share shopping list:",error);
-  }
-};
+  };
   //Read function
   const loadShoppingLists = async () => {
     if (!user) {
@@ -151,12 +145,12 @@ export const Home = () => {
 
   return (
     <div className={styles.home}>
-      
+
       <main className={styles.content}>
-<Navbar /> <br /><br />
+        <Navbar /> <br /><br />
         <section className={styles.header}>
-            <h3>Create and manage all your shopping lists in one place.</h3>
-          
+          <h3>Create and manage all your shopping lists in one place.</h3>
+
           <button type="button" className={styles.addButton} onClick={() => setShowAddForm(true)}>+ Add New List</button>
         </section>
         {/*searching*/}
@@ -192,7 +186,7 @@ export const Home = () => {
             </select>
           </div>
         </section>
-            {/*shopping lists section */}
+        {/*shopping lists section */}
         <section className={styles.listSection}>
           <div className={styles.sectionHeader}>
             <h2>Shopping Lists</h2>
@@ -226,7 +220,7 @@ export const Home = () => {
                       <div className={styles.itemInfo}>
                         {item.image && (<img src={item.image} alt={item.name} className={styles.itemImage} />)}
                         <span>{item.name}</span>
-                        
+                        <span>{item.category}</span>
                       </div>
 
                       <span>{item.quantity}</span>
@@ -235,9 +229,9 @@ export const Home = () => {
                 </div>
 
                 <div className={styles.cardActions}>
-                  <button type="button" onClick={() => setEditingList(list)}>Edit</button>
-                  <button type="button" onClick={() => handleDeleteShoppingList(list.id)}>Delete</button>
-                  <button type="button" onClick={() => handleShareShoppingList(list)}>Share</button>
+                  <button type="button" onClick={() => setEditingList(list)}><LuPencil /> Edit</button>
+                  <button type="button" onClick={() => handleDeleteShoppingList(list.id)}><LuTrash2 /> Delete</button>
+                  <button type="button" onClick={() => handleShareShoppingList(list)}><LuShare2 /> Share</button>
                 </div>
               </article>
             ))}

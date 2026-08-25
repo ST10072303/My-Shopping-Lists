@@ -1,7 +1,7 @@
 import { type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authService";
-import styles from "./Register.module.css"
+import styles from "./Register.module.css";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -34,12 +34,7 @@ export const Register = () => {
     setError("");
     setSuccess("");
 
-    if (
-      !formData.email ||
-      !formData.password ||
-      !formData.name ||
-      !formData.surname ||
-      !formData.cellNumber
+    if (!formData.email || !formData.password || !formData.name || !formData.surname || !formData.cellNumber
     ) {
       setError("Please complete all fields.");
       return;
@@ -47,6 +42,7 @@ export const Register = () => {
 
     try {
       await registerUser(formData);
+
       setSuccess("Account created successfully!");
 
       setTimeout(() => {
@@ -59,43 +55,61 @@ export const Register = () => {
   };
 
   return (
-    <main>
-      <h1>Create an Account</h1>
-      <p>Enter your details to create an account.</p>
+    <main className={styles.register}>
+      <div className={styles.wrapper}>
+        <h1>Create an Account</h1>
 
-      {error && <p>{error}</p>}
-      {success && <p>{success}</p>}
+        <p className={styles.subtitle}>Enter your details to create an account.</p>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
-        </div>
+        {error && (
+          <p className={styles.errorMessage}>{error}</p>
+        )}
 
-        <div>
-          <label htmlFor="name">Name</label>
-          <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required />
-        </div>
+        {success && (
+          <p className={styles.successMessage}>{success}</p>
+        )}
 
-        <div>
-          <label htmlFor="surname">Surname</label>
-          <input id="surname" name="surname" type="text" value={formData.surname} onChange={handleChange} required />
-        </div>
+        <form onSubmit={handleSubmit}>
+          
+          <div className={styles.inputGroup}>
+            <label htmlFor="name">n</label>
 
-        <div>
-          <label htmlFor="cellNumber">Cell number</label>
-          <input id="cellNumber" name="cellNumber" type="tel" value={formData.cellNumber} onChange={handleChange} required />
-        </div>
+            <input id="name" name="name" type="text" value={formData.name} onChange={handleChange}
+              placeholder="Name" required/>
+          </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <input id="password" name="password" type="password" value={formData.password} onChange={handleChange} required />
-        </div>
+        
+          <div className={styles.inputGroup}>
+            <label htmlFor="surname">s</label>
 
-        <button type="submit">Sign Up</button>
-      </form>
+            <input id="surname" name="surname" type="text" value={formData.surname} onChange={handleChange}
+              placeholder="Surname" required/>
+          </div>
 
-      <p>Already have an account?{" "}<Link to="/">Log In</Link></p>
+      
+          <div className={styles.inputGroup}>
+            <label htmlFor="email">@</label>
+
+            <input id="email" name="email" type="email" value={formData.email}onChange={handleChange}
+              placeholder="Email" required/>
+          </div>
+          
+          <div className={styles.inputGroup}>
+            <label htmlFor="cellNumber">c</label>
+
+            <input id="cellNumber" name="cellNumber" type="tel" value={formData.cellNumber} onChange={handleChange}
+              placeholder="Cell number" required/>
+          </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="password">p</label>
+            <input id="password" name="password" type="password" value={formData.password} onChange={handleChange}
+              placeholder="Password" required/>
+          </div>
+
+          <button type="submit">Sign Up</button>
+        </form>
+        <p className={styles.accountText}>Already have an account?{" "}<Link to="/">Log In</Link></p>
+      </div>
     </main>
   );
 };

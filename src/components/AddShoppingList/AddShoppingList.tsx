@@ -119,13 +119,11 @@ export const AddShoppingList = ({onCancel, onSave,}: AddShoppingListProps) => {
                 <select id="category" value={category} onChange={(event) => setCategory(event.target.value)}>
                   <option value="">Select category</option>
                   <option value="Groceries">Groceries</option>
-                  <option value="Dairy">Dairy</option>
-                  <option value="Fruit">Fruit</option>
-                  <option value="Vegetables">Vegetables</option>
-                  <option value="Bakery">Bakery</option>
-                  <option value="Meat">Meat</option>
+                  <option value="Clothes">Clothes</option>
+                  <option value="Tools">Tools</option>
                   <option value="Gaming">Gaming</option>
                   <option value="Electronics">Electronics</option>
+                  <option value="Other">Personal</option>
                   <option value="Other">Other</option>
                 </select>
               </div>

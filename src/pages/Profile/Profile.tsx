@@ -225,7 +225,6 @@ export const Profile = () => {
 </div>
       
       </section>
-     
     </main>
   );
 };

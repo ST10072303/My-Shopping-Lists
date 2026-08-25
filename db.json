@@ -104,6 +104,36 @@
           "image": "https://sbrprosound.co.za/wp-content/uploads/2022/08/VIVSPEHYB027-2-300x300.jpg"
         }
       ]
+    },
+    {
+      "id": "QVY8jdeXsGQ",
+      "userId": "MtCkbex02WY",
+      "name": "Summer cloths",
+      "notes": "close for hot summer weather",
+      "items": [
+        {
+          "id": "bd51a1f9-346a-4c59-a411-04344a76a250",
+          "name": "Cap",
+          "quantity": 1,
+          "category": "Other",
+          "image": "https://tse4.mm.bing.net/th/id/OIP.Jj3pHGhPVNVOUEelWZpzlQHaF4?r=0&rs=1&pid=ImgDetMain&o=7&rm=3"
+        }
+      ]
+    },
+    {
+      "id": "XFBwNa621bQ",
+      "userId": "MtCkbex02WY",
+      "name": "Winter cloths",
+      "notes": "Clothes for cold winter weather",
+      "items": [
+        {
+          "id": "81ec5669-3f1d-489b-9e4a-572291dd9dfa",
+          "name": "Hoody",
+          "quantity": 1,
+          "category": "Other",
+          "image": "https://th.bing.com/th/id/R.256ada6a6a2316c0ab55613ab4ab147e?rik=lqubWTGwguyz9w&pid=ImgRaw&r=0"
+        }
+      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
