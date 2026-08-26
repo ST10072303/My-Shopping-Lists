@@ -214,8 +214,7 @@ export const Home = () => {
 
                 {list.notes && (<p>{list.notes}</p>)}
 
-                <div className={styles.items}>
-                  {list.items.map((item) => (
+                <div className={styles.items}>{list.items.map((item) => (
                     <div key={item.id} className={styles.item}>
                       <div className={styles.itemInfo}>
                         {item.image && (<img src={item.image} alt={item.name} className={styles.itemImage} />)}

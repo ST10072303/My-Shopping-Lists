@@ -121,17 +121,17 @@
       ]
     },
     {
-      "id": "XFBwNa621bQ",
+      "id": "zhgrNZtf6ig",
       "userId": "MtCkbex02WY",
-      "name": "Winter cloths",
+      "name": "Winter Clothes",
       "notes": "Clothes for cold winter weather",
       "items": [
         {
-          "id": "81ec5669-3f1d-489b-9e4a-572291dd9dfa",
+          "id": "88240ef8-83bb-4901-86db-43ccbadb6683",
           "name": "Hoody",
           "quantity": 1,
-          "category": "Other",
-          "image": "https://th.bing.com/th/id/R.256ada6a6a2316c0ab55613ab4ab147e?rik=lqubWTGwguyz9w&pid=ImgRaw&r=0"
+          "category": "Clothes",
+          "image": "https://pixabay.com/get/gfbe6d052793e6acd2941d6d89a5fa6f79acaffa8a4aac2101c9cf0f548503b8756b2361d865d19f30d8b8b64e99a4c0c16daa470f0c836ea2f624137fa860075_640.jpg"
         }
       ]
     }

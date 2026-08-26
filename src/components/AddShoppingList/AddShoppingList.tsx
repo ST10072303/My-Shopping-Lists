@@ -1,21 +1,45 @@
 import { useState } from "react";
 import styles from "./AddShoppingList.module.css";
 import type { ShoppingItem, ShoppingList } from "../../types/ShoppingItem";
-
+import { searchPixabayImages, type PixabayImage } from "../../services/ApiService";
 interface AddShoppingListProps {
   onCancel: () => void;
   onSave: (shoppingList: ShoppingList) => void;
 }
 
-export const AddShoppingList = ({onCancel, onSave,}: AddShoppingListProps) => {
+export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => {
   const [listName, setListName] = useState("");
   const [notes, setNotes] = useState("");
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
+  const [imageSearch, setImageSearch] = useState("");
+  const [pixabayImages, setPixabayImages] = useState<PixabayImage[]>([]);
+  const [isSearchingImages, setIsSearchingImages] = useState(false);
+  const [imageSearchError, setImageSearchError] = useState("");
 
   const [items, setItems] = useState<ShoppingItem[]>([]);
+
+  //fetch image
+  const handleSearchImages = async () => {
+    if (!imageSearch.trim()) {
+      return;
+    }
+    setImageSearchError("");
+    setIsSearchingImages(true);
+    try {
+      const results = await searchPixabayImages(imageSearch.trim());
+
+      setPixabayImages(results);
+    } catch (error) {
+      console.error("Failed to search Pixabay images:", error);
+
+      setImageSearchError("Unable to search for images. Please try again.");
+    } finally {
+      setIsSearchingImages(false);
+    }
+  };
 
   const handleAddItem = () => {
     if (!itemName.trim()) {
@@ -94,7 +118,7 @@ export const AddShoppingList = ({onCancel, onSave,}: AddShoppingListProps) => {
           <div className={styles.formGroup}>
             <label htmlFor="notes"> Notes <span>(Optional)</span></label>
 
-            <textarea value={notes} onChange={(event) => setNotes(event.target.value) }
+            <textarea value={notes} onChange={(event) => setNotes(event.target.value)}
               placeholder="Add any notes about this shopping list..." rows={3} />
           </div>
 
@@ -103,14 +127,14 @@ export const AddShoppingList = ({onCancel, onSave,}: AddShoppingListProps) => {
             <div className={styles.itemForm}>
               <div className={styles.formGroup}>
                 <label htmlFor="itemName">Item Name </label>
-                <input type="text" value={itemName} onChange={(event) => setItemName(event.target.value) }
+                <input type="text" value={itemName} onChange={(event) => setItemName(event.target.value)}
                   placeholder="e.g. Milk" />
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="quantity">Quantity</label>
                 <input type="number" min="1" value={quantity} onChange={(event) =>
-                    setQuantity(Number(event.target.value))} />
+                  setQuantity(Number(event.target.value))} />
               </div>
 
               <div className={styles.formGroup}>
@@ -128,10 +152,36 @@ export const AddShoppingList = ({onCancel, onSave,}: AddShoppingListProps) => {
                 </select>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="image">Image URL</label>
+              <div className={styles.imageSection}>
+                <label htmlFor="imageSearch">Choose an Image</label>
 
-                <input type="url" value={image} onChange={(event) => setImage(event.target.value)}placeholder="https://..." />
+                <div className={styles.imageSearch}>
+                  <input id="imageSearch" type="search" value={imageSearch} onChange={(event) =>
+                    setImageSearch(event.target.value)} placeholder="Search for an item image..." />
+
+                  <button type="button" onClick={handleSearchImages} disabled={isSearchingImages}>
+                    {isSearchingImages ? "Searching..." : "Search"} </button>
+                </div>
+
+                {imageSearchError && (<p className={styles.imageError} role="alert">{imageSearchError}</p>)}
+
+                {pixabayImages.length > 0 && (
+                  <div className={styles.imageResults}>
+                    {pixabayImages.map((pixabayImage) => (
+                      <button key={pixabayImage.id} type="button" className={image === pixabayImage.webformatURL
+                        ? styles.selectedImage : styles.imageOption} onClick={() =>
+                          setImage(pixabayImage.webformatURL)} aria-label={`Select image of ${pixabayImage.tags}`}>
+                        <img src={pixabayImage.previewURL} alt={pixabayImage.tags} /></button>
+                    ))}
+                  </div>
+                )}
+
+                {image && (
+                  <div className={styles.selectedImagePreview}>
+                    <p>Selected image:</p>
+                    <img src={image} alt={`Selected image for ${itemName || "shopping item"}`} />
+                  </div>
+                )}
               </div>
             </div>
 
