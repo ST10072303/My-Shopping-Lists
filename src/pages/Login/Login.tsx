@@ -49,7 +49,7 @@ export const Login = () => {
           <p className={styles.errorMessage}>{error}</p>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form className={styles.formLogin} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor="email"><LuMail /></label>
             <input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)}
@@ -62,7 +62,7 @@ export const Login = () => {
               placeholder="Password" required/>
           </div>
 
-          <button type="submit" disabled={loading}>{loading ? "Logging in..." : "Log In"}</button>
+          <button className={styles.formBtn} type="submit" disabled={loading}>{loading ? "Logging in..." : "Log In"}</button>
         </form>
 
         <p className={styles.accountText}>Don't have an account?{" "}<Link to="/register">Create Account</Link></p>

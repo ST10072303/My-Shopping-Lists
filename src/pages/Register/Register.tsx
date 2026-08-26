@@ -51,7 +51,7 @@ export const Register = () => {
           <p className={styles.successMessage}>{success}</p>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form className={styles.formRegister} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
             <label htmlFor="name"><LuUser /></label>
 
@@ -65,7 +65,6 @@ export const Register = () => {
               placeholder="Surname" required/>
           </div>
 
-      
           <div className={styles.inputGroup}>
             <label htmlFor="email"><LuMail /></label>
             <input id="email" name="email" type="email" value={formData.email}onChange={handleChange}
@@ -84,7 +83,7 @@ export const Register = () => {
               placeholder="Password" required/>
           </div>
 
-          <button type="submit">Sign Up</button>
+          <button className={styles.formButton} type="submit">Sign Up</button>
         </form>
         <p className={styles.accountText}>Already have an account?{" "}<Link to="/">Log In</Link></p>
       </div>

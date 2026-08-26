@@ -47,7 +47,7 @@
   font-size: 1rem;
 }
 
-form {
+.formRegister {
   width: min(400px, 100%);
   margin-top: 20px;
   margin-bottom: 35px;
@@ -109,7 +109,7 @@ form {
   color: var(--text-color);
 }
 
-form button {
+.formButton {
   margin-top: 10px;
   border: none;
   border-radius: 1000px;
@@ -123,11 +123,11 @@ form button {
   transition: 150ms ease;
 }
 
-form button:hover {
+.formButton:hover {
   background-color: var(--text-color);
 }
 
-form button:focus {
+.formButton:focus {
   outline: none;
   background-color: var(--text-color);
 }

@@ -8,6 +8,7 @@ import { Profile } from "./pages/Profile/Profile";
 
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { PublicRoute } from './components/PublicRoute/PublicRoute';
+import { SharingList } from './pages/Sharing/SharingList';
 
 
 function App() {
@@ -17,11 +18,15 @@ function App() {
 
       <BrowserRouter>
         <Routes>
+
           {/* Public routes */}
           <Route element={<PublicRoute />}>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
+
+          {/* Sharing shopping list */}
+          <Route path="/share/:id" element={<SharingList />} />
 
           {/* Protected routes */}
           <Route element={<ProtectedRoute />}>

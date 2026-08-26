@@ -6,8 +6,7 @@ const API_URL = "http://localhost:3001/shoppingLists";
 export const getShoppingLists = async (
   userId: string
 ): Promise<ShoppingList[]> => {
-  const response = await axios.get<ShoppingList[]>(
-    `${API_URL}?userId=${userId}`);
+  const response = await axios.get<ShoppingList[]>(`${API_URL}?userId=${userId}`);
   return response.data;
 };
 
@@ -27,4 +26,10 @@ export const updateShoppingList = async (shoppingList: ShoppingList ): Promise<S
 //delete
 export const deleteShoppingList = async (id: string): Promise<void> => {
   await axios.delete(`${API_URL}/${id}`);
+};
+
+//sharing function
+export const getShoppingListById = async (id: string): Promise<ShoppingList> => {
+  const response = await axios.get<ShoppingList>(`${API_URL}/${id}`);
+  return response.data;
 };

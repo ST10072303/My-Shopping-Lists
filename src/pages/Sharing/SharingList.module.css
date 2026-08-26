@@ -1,0 +1,66 @@
+.sharingContainer {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.sharingCard {
+  width: 100%;
+  max-width: 700px;
+  padding: 30px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.shareHeader {
+  margin-bottom: 30px;
+}
+
+.shareHeader h1 {
+  margin: 5px 0 10px;
+}
+
+.sharedLabel {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.sharingItems {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.shareItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.shareItemImage {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.itemInfo {
+  flex: 1;
+}
+
+.itemInfo h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.itemInfo p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
