@@ -5,6 +5,7 @@ import { loginUser } from "../../services/authService";
 import { login } from "../../store/authSlice";
 import type { AppDispatch } from "../../store/store";
 import styles from "./Login.module.css";
+import { LuCircleUser, LuKeyRound, LuMail } from "react-icons/lu";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ export const Login = () => {
     <main className={styles.login}>
       <div className={styles.wrapper}>
         <h1>Welcome</h1>
+        <h1><LuCircleUser /></h1>
 
         <p className={styles.subtitle}>Enter your details to log in.</p>
 
@@ -49,14 +51,13 @@ export const Login = () => {
 
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label htmlFor="email">@</label>
-
+            <label htmlFor="email"><LuMail /></label>
             <input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)}
               placeholder="Email" required />
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="password">p</label>
+            <label htmlFor="password"><LuKeyRound /></label>
             <input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)}
               placeholder="Password" required/>
           </div>

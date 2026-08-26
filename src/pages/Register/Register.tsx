@@ -2,35 +2,21 @@ import { type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/authService";
 import styles from "./Register.module.css";
+import { LuKeyRound, LuMail, LuPhone, LuSquareUser, LuUser, LuUserRoundPlus } from "react-icons/lu";
 
 export const Register = () => {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    name: "",
-    surname: "",
-    cellNumber: "",
-  });
-
+  const [formData, setFormData] = useState({email: "", password: "", name: "", surname: "", cellNumber: "",});
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const { name, value } = event.target;
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const { name, value } = event.target;
-
-    setFormData((previous) => ({
-      ...previous,
-      [name]: value,
-    }));
+  setFormData((previous) => ({...previous, [name]: value,}));
   };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-
     setError("");
     setSuccess("");
 
@@ -42,12 +28,8 @@ export const Register = () => {
 
     try {
       await registerUser(formData);
-
       setSuccess("Account created successfully!");
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      setTimeout(() => {navigate("/");}, 1000);
     } catch (error) {
       console.error(error);
       setError("Unable to create account. Please try again.");
@@ -57,8 +39,8 @@ export const Register = () => {
   return (
     <main className={styles.register}>
       <div className={styles.wrapper}>
-        <h1>Create an Account</h1>
-
+        <h2>Create an Account</h2>
+        <h1><LuUserRoundPlus /></h1>
         <p className={styles.subtitle}>Enter your details to create an account.</p>
 
         {error && (
@@ -70,38 +52,34 @@ export const Register = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          
           <div className={styles.inputGroup}>
-            <label htmlFor="name">n</label>
+            <label htmlFor="name"><LuUser /></label>
 
             <input id="name" name="name" type="text" value={formData.name} onChange={handleChange}
               placeholder="Name" required/>
           </div>
-
         
           <div className={styles.inputGroup}>
-            <label htmlFor="surname">s</label>
-
+            <label htmlFor="surname"><LuSquareUser /></label>
             <input id="surname" name="surname" type="text" value={formData.surname} onChange={handleChange}
               placeholder="Surname" required/>
           </div>
 
       
           <div className={styles.inputGroup}>
-            <label htmlFor="email">@</label>
-
+            <label htmlFor="email"><LuMail /></label>
             <input id="email" name="email" type="email" value={formData.email}onChange={handleChange}
               placeholder="Email" required/>
           </div>
           
           <div className={styles.inputGroup}>
-            <label htmlFor="cellNumber">c</label>
+            <label htmlFor="cellNumber"><LuPhone /></label>
 
             <input id="cellNumber" name="cellNumber" type="tel" value={formData.cellNumber} onChange={handleChange}
               placeholder="Cell number" required/>
           </div>
           <div className={styles.inputGroup}>
-            <label htmlFor="password">p</label>
+            <label htmlFor="password"><LuKeyRound /></label>
             <input id="password" name="password" type="password" value={formData.password} onChange={handleChange}
               placeholder="Password" required/>
           </div>

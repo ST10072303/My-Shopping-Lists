@@ -147,7 +147,7 @@ export const Home = () => {
     <div className={styles.home}>
 
       <main className={styles.content}>
-        <Navbar /> <br /><br />
+        <Navbar /><br /><br />
         <section className={styles.header}>
           <h3>Create and manage all your shopping lists in one place.</h3>
 
@@ -229,9 +229,9 @@ export const Home = () => {
                 </div>
 
                 <div className={styles.cardActions}>
-                  <button type="button" onClick={() => setEditingList(list)}><LuPencil /> Edit</button>
-                  <button type="button" onClick={() => handleDeleteShoppingList(list.id)}><LuTrash2 /> Delete</button>
-                  <button type="button" onClick={() => handleShareShoppingList(list)}><LuShare2 /> Share</button>
+                  <button type="button" onClick={() => setEditingList(list)}><LuPencil style={{color: "#8672FF"}} /> Edit</button>
+                  <button type="button" onClick={() => handleDeleteShoppingList(list.id)}><LuTrash2 style={{color: "#EF4444"}}/> Delete</button>
+                  <button type="button" onClick={() => handleShareShoppingList(list)}><LuShare2 style={{color: "#3B82F6"}}/> Share</button>
                 </div>
               </article>
             ))}

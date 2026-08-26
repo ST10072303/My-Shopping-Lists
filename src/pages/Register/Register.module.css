@@ -5,17 +5,12 @@
   --base-color: #ffffff;
   --text-color: #2e2b41;
   --input-color: #f3f0ff;
-
   min-height: 100vh;
   width: 100%;
-
-  background-size: cover;
-  background-position: right;
-
+  background-color: #f3f0ff;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-
+  justify-content: center;
   font-family: Poppins, "Segoe UI", sans-serif;
   color: var(--text-color);
   text-align: center;
@@ -23,29 +18,28 @@
 
 .wrapper {
   box-sizing: border-box;
-
   background-color: var(--base-color);
-
-  min-height: 100vh;
-  width: max(40%, 600px);
-
-  padding: 30px 20px;
-
-  border-radius: 0 20px 20px 0;
-
+  width: min(500px, 90%);
+  padding: 45px 40px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 10px 30px rgba(46, 43, 65, 0.1);
+}
+
+.wrapper h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .wrapper h1 {
   margin: 0;
-
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 900;
-
-  text-transform: uppercase;
 }
 
 .subtitle {
@@ -55,63 +49,46 @@
 
 form {
   width: min(400px, 100%);
-
   margin-top: 20px;
   margin-bottom: 35px;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-
   gap: 10px;
 }
 
 .inputGroup {
   width: 100%;
-
   display: flex;
   justify-content: center;
 }
 
 .inputGroup label {
   flex-shrink: 0;
-
   height: 50px;
   width: 50px;
-
   background-color: var(--accent-color);
-
   fill: var(--base-color);
   color: var(--base-color);
-
   border-radius: 10px 0 0 10px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-size: 1.5rem;
   font-weight: 500;
 }
 
 .inputGroup input {
   box-sizing: border-box;
-
   flex-grow: 1;
   min-width: 0;
-
   height: 50px;
-
   padding: 1em;
-
   font: inherit;
-
   border-radius: 0 10px 10px 0;
   border: 2px solid var(--input-color);
   border-left: none;
-
   background-color: var(--input-color);
-
   transition: 150ms ease;
 }
 
@@ -134,22 +111,15 @@ form {
 
 form button {
   margin-top: 10px;
-
   border: none;
   border-radius: 1000px;
-
   padding: 0.85em 4em;
-
   background-color: var(--accent-color);
   color: var(--base-color);
-
   font: inherit;
   font-weight: 600;
-
   text-transform: uppercase;
-
   cursor: pointer;
-
   transition: 150ms ease;
 }
 
@@ -168,9 +138,7 @@ form button:focus {
 
 .accountText a {
   text-decoration: none;
-
   color: var(--accent-color);
-
   font-weight: 600;
 }
 
@@ -180,25 +148,19 @@ form button:focus {
 
 .errorMessage {
   width: min(400px, 100%);
-
   margin-top: 15px;
-
   color: #f06272;
-
   font-size: 0.9rem;
 }
 
 .successMessage {
   width: min(400px, 100%);
-
   margin-top: 15px;
-
   color: #4caf50;
-
   font-size: 0.9rem;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .wrapper {
     width: min(600px, 100%);
 
@@ -206,7 +168,7 @@ form button:focus {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .wrapper {
     padding: 20px;
   }
@@ -220,7 +182,7 @@ form button:focus {
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .wrapper h1 {
     font-size: 2rem;
   }
