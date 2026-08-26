@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./EditItemModel.module.css";
 import type { ShoppingItem, ShoppingList } from "../../types/ShoppingItem";
+import { searchPixabayImages, type PixabayImage } from "../../services/ApiService";
 
 interface EditShoppingListProps {
   shoppingList: ShoppingList;
@@ -8,7 +9,7 @@ interface EditShoppingListProps {
   onSave: (shoppingList: ShoppingList) => void;
 }
 
-export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShoppingListProps) => {
+export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppingListProps) => {
   const [listName, setListName] = useState(shoppingList.name);
   const [notes, setNotes] = useState(shoppingList.notes ?? "");
   const [items, setItems] = useState<ShoppingItem[]>(shoppingList.items);
@@ -16,29 +17,67 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
+  //api image
+  const [imageSearch, setImageSearch] = useState("");
+  const [pixabayImages, setPixabayImages] = useState<PixabayImage[]>([]);
+  const [isSearchingImages, setIsSearchingImages] = useState(false);
+  const [imageSearchError, setImageSearchError] = useState("");
+
+  // searched image
+  const handleSearchImages = async () => {
+    if (!imageSearch.trim()) {
+      return;
+    }
+    setImageSearchError("");
+    setIsSearchingImages(true);
+
+    try {
+      const results = await searchPixabayImages(imageSearch.trim());
+
+      setPixabayImages(results);
+    } catch (error) {
+      console.error("Failed to search Pixabay images:", error);
+
+      setImageSearchError("Unable to search for images. Please try again.");
+    } finally {
+      setIsSearchingImages(false);
+    }
+  };
+  // add item
   const handleAddItem = () => {
     if (!itemName.trim() || !category) {
       return;
     }
 
-    const newItem: ShoppingItem = {id: crypto.randomUUID(), name: itemName.trim(), quantity, category, image,};
+    const newItem: ShoppingItem = {
+      id: crypto.randomUUID(),
+      name: itemName.trim(),
+      quantity,
+      category,
+      image,
+    };
+
     setItems((currentItems) => [...currentItems, newItem,]);
     setItemName("");
     setQuantity(1);
     setCategory("");
     setImage("");
+    setImageSearch("");
+    setPixabayImages([]);
+    setImageSearchError("");
   };
 
   const handleRemoveItem = (itemId: string) => {
     setItems((currentItems) => currentItems.filter((item) => item.id !== itemId));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {event.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (!listName.trim() || items.length === 0) {
       return;
     }
 
-    const updatedList: ShoppingList = {...shoppingList, name: listName.trim(), notes: notes.trim(), items,};
+    const updatedList: ShoppingList = { ...shoppingList, name: listName.trim(), notes: notes.trim(), items, };
     onSave(updatedList);
   };
 
@@ -51,18 +90,18 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
             <p>Update your shopping list and its items.</p>
           </div>
 
-          <button type="button" className={styles.closeButton} onClick={onCancel}aria-label="Close edit shopping list form">x</button>
+          <button type="button" className={styles.closeButton} onClick={onCancel} aria-label="Close edit shopping list form">x</button>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="editListName">List Name</label>
-            <input type="text" value={listName} onChange={(event) => setListName(event.target.value)}required/>
+            <input type="text" value={listName} onChange={(event) => setListName(event.target.value)} required />
           </div>
 
           <div className={styles.formGroup}>
             <label htmlFor="editNotes"> Notes <span>(Optional)</span></label>
-            <textarea value={notes} onChange={(event) => setNotes(event.target.value)}rows={3}/>
+            <textarea value={notes} onChange={(event) => setNotes(event.target.value)} rows={3} />
           </div>
 
           <div className={styles.itemSection}>
@@ -71,12 +110,12 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
             <div className={styles.itemForm}>
               <div className={styles.formGroup}>
                 <label htmlFor="editItemName">Item Name</label>
-                <input type="text" value={itemName} onChange={(event) => setItemName(event.target.value)}placeholder="e.g. Milk"/>
+                <input type="text" value={itemName} onChange={(event) => setItemName(event.target.value)} placeholder="e.g. Milk" />
               </div>
 
               <div className={styles.formGroup}>
                 <label htmlFor="editQuantity">Quantity</label>
-                <input type="number" min="1" value={quantity} onChange={(event) => setQuantity(Number(event.target.value))}/>
+                <input type="number" min="1" value={quantity} onChange={(event) => setQuantity(Number(event.target.value))} />
               </div>
 
               <div className={styles.formGroup}>
@@ -96,13 +135,39 @@ export const EditShoppingList = ({shoppingList, onCancel, onSave,}: EditShopping
                 </select>
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="editImage">Image URL</label>
-                <input type="url" value={image} onChange={(event) => setImage(event.target.value)}placeholder="https://..."/>
-              </div>
-            </div>
+              <div className={styles.imageSection}>
+                <label htmlFor="editImageSearch">Choose an Image</label>
 
-            <button type="button" className={styles.addItemButton} onClick={handleAddItem}>+ Add Item</button>
+                <div className={styles.imageSearch}>
+                  <input id="editImageSearch" type="search" value={imageSearch}
+                    onChange={(event) => setImageSearch(event.target.value)}
+                    placeholder="Search for an item image..."/>
+
+                  <button type="button" onClick={handleSearchImages}disabled={isSearchingImages}>
+                    {isSearchingImages ? "Searching..." : "Search"}</button>
+                </div>
+
+                {imageSearchError && (<p className={styles.imageError}role="alert">{imageSearchError}</p>)}
+
+                {pixabayImages.length > 0 && (
+                  <div className={styles.imageResults}>
+                    {pixabayImages.map((pixabayImage) => (
+                      <button key={pixabayImage.id} type="button" className={
+                          image === pixabayImage.webformatURL ? styles.selectedImage : styles.imageOption}
+                        onClick={() => setImage(pixabayImage.webformatURL)}
+                        aria-label={`Select image of ${pixabayImage.tags}`}>
+                        <img src={pixabayImage.previewURL} alt={pixabayImage.tags}/></button>
+                    ))}
+                  </div>
+                )}
+
+                {image && (<div className={styles.selectedImagePreview}><p>Selected image:</p>
+                    <img src={image} alt={`Selected image for ${itemName || "shopping item"}`}/>
+                  </div>)}
+              </div>
+
+            </div>
+            <br/><button type="button" className={styles.addItemButton} onClick={handleAddItem}>+ Add Item</button>
           </div>
 
           <div className={styles.itemsPreview}>

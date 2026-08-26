@@ -185,7 +185,7 @@ export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => 
               </div>
             </div>
 
-            <button type="button" className={styles.addItemButton} onClick={handleAddItem}> + Add Item </button>
+            <br/><button type="button" className={styles.addItemButton} onClick={handleAddItem}> + Add Item </button>
           </div>
 
           {items.length > 0 && (
