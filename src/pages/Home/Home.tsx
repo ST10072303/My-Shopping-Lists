@@ -132,7 +132,7 @@ export const Home = () => {
       console.error("Failed to load shopping lists:", error);
 
       dispatch(
-        setError("Unable to load shopping lists. Please try again."));
+        setError("Unable to load shopping lists. Please check your internet connection and try again."));
       //make loading state to not get stuck
     } finally {
       dispatch(setLoading(false));
@@ -153,6 +153,7 @@ export const Home = () => {
 
           <button type="button" className={styles.addButton} onClick={() => setShowAddForm(true)}>+ Add New List</button>
         </section>
+
         {/*searching*/}
         <section className={styles.controls}>
           <div className={styles.searchContainer}>
@@ -164,8 +165,9 @@ export const Home = () => {
               } else {
                 setSearchParams({});
               }
-            }} />
+            }}/>
           </div>
+
           {/*sorting*/}
           <div className={styles.sortContainer}>
             <label htmlFor="shoppingSort">Sort by</label>
@@ -186,11 +188,12 @@ export const Home = () => {
             </select>
           </div>
         </section>
+
         {/*shopping lists section */}
         <section className={styles.listSection}>
           <div className={styles.sectionHeader}>
-            <h2>Shopping Lists</h2>
-            <span>{shoppingLists.length}{" "} {shoppingLists.length === 1 ? "list" : "lists"}</span>
+            <h2>All Shopping Lists</h2>
+           
           </div>
 
           <div className={styles.listGrid}>
@@ -214,14 +217,14 @@ export const Home = () => {
 
                 {list.notes && (<p>{list.notes}</p>)}
 
+                {/*list section */}
                 <div className={styles.items}>{list.items.map((item) => (
                     <div key={item.id} className={styles.item}>
                       <div className={styles.itemInfo}>
                         {item.image && (<img src={item.image} alt={item.name} className={styles.itemImage} />)}
-                        <span>{item.name}</span>
-                        <span>{item.category}</span>
+                        <span style={{fontSize: "18px"}}>{item.name}</span>
+                        <span style={{fontSize: "12px"}}>{item.category}</span>
                       </div>
-
                       <span>{item.quantity}</span>
                     </div>
                   ))}
@@ -237,11 +240,9 @@ export const Home = () => {
           </div>
         </section>
       </main>
-      {showAddForm && (
-        <AddShoppingList onCancel={() => setShowAddForm(false)} onSave={handleSaveShoppingList} />)}
+      {showAddForm && (<AddShoppingList onCancel={() => setShowAddForm(false)} onSave={handleSaveShoppingList} />)}
 
-      {editingList && (
-        <EditShoppingList shoppingList={editingList} onCancel={() => setEditingList(null)} onSave={handleUpdateShoppingList} />)}
+      {editingList && (<EditShoppingList shoppingList={editingList} onCancel={() => setEditingList(null)} onSave={handleUpdateShoppingList} />)}
     </div>
   );
 };

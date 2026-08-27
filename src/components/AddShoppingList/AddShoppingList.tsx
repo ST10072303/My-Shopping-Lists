@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./AddShoppingList.module.css";
 import type { ShoppingItem, ShoppingList } from "../../types/ShoppingItem";
 import { searchPixabayImages, type PixabayImage } from "../../services/ApiService";
+
 interface AddShoppingListProps {
   onCancel: () => void;
   onSave: (shoppingList: ShoppingList) => void;
@@ -58,10 +59,7 @@ export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => 
       image,
     };
 
-    setItems((currentItems) => [
-      ...currentItems,
-      newItem,
-    ]);
+    setItems((currentItems) => [...currentItems, newItem,]);
 
     setItemName("");
     setQuantity(1);
@@ -208,7 +206,6 @@ export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => 
 
           <div className={styles.actions}>
             <button type="button" className={styles.cancelButton} onClick={onCancel}>Cancel</button>
-
             <button type="submit" className={styles.saveButton}>Create Shopping List</button>
           </div>
         </form>

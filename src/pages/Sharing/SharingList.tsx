@@ -21,7 +21,6 @@ export const SharingList = () => {
         setShoppingList(list);
       } catch (error) {
         console.error("Failed to load shared shopping list:",error);
-
         setError("Unable to load this shopping list.");
       } finally {
         setLoading(false);

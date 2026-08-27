@@ -51,7 +51,6 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
-
   margin-bottom: 18px;
 }
 
@@ -149,16 +148,12 @@
 
 .imageResults {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(100px, 1fr)
-  );
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 10px;
   margin-top: 5px;
 }
 
-.imageOption,
-.selectedImage {
+.imageOption, .selectedImage {
   padding: 0;
   border: 2px solid transparent;
   border-radius: 8px;
@@ -176,8 +171,7 @@
   border-color: #2563eb;
 }
 
-.imageOption img,
-.selectedImage img {
+.imageOption img, .selectedImage img {
   display: block;
   width: 100%;
   height: 100%;
@@ -282,13 +276,11 @@
 
 .cancelButton {
   border: 1px solid #cbd5e1;
-
   background-color: white;
 }
 
 .saveButton {
   border: none;
-
   background-color: #2563eb;
   color: white;
 }
@@ -297,35 +289,36 @@
   background-color: #1d4ed8;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .overlay {
     padding: 10px;
   }
-
   .modal {
     padding: 20px;
     max-height: 95vh;
   }
-
   .itemForm {
     grid-template-columns: 1fr;
   }
-
   .actions {
     flex-direction: column-reverse;
   }
-
-  .cancelButton,
-  .saveButton {
+  .cancelButton, .saveButton {
     width: 100%;
   }
-
   .previewItem {
     align-items: flex-start;
     flex-direction: column;
   }
-
   .removeButton {
-    width: 100%;
+    width: 70px;
+  }
+}
+@media (max-width: 320px) {
+  .formGroup input, .formGroup select, .formGroup textarea {
+    width: 230px;
+  }
+  .imageSearch input {
+    width: 130px;
   }
 }

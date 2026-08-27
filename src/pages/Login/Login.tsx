@@ -42,12 +42,9 @@ export const Login = () => {
       <div className={styles.wrapper}>
         <h1>Welcome</h1>
         <h1><LuCircleUser /></h1>
-
         <p className={styles.subtitle}>Enter your details to log in.</p>
 
-        {error && (
-          <p className={styles.errorMessage}>{error}</p>
-        )}
+        {error && (<p className={styles.errorMessage}>{error}</p>)}
 
         <form className={styles.formLogin} onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
@@ -61,10 +58,9 @@ export const Login = () => {
             <input id="password" type="password" value={password} onChange={(event) => setPassword(event.target.value)}
               placeholder="Password" required/>
           </div>
-
+          
           <button className={styles.formBtn} type="submit" disabled={loading}>{loading ? "Logging in..." : "Log In"}</button>
         </form>
-
         <p className={styles.accountText}>Don't have an account?{" "}<Link to="/register">Create Account</Link></p>
       </div>
     </main>

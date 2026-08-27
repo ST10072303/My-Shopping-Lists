@@ -11,11 +11,13 @@
   box-sizing: border-box;
   position: fixed;
   top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1;
 }
-/*to check*/
+
 .logo {
-  font-size: 2rem;
+  font-size: 32px; 
   font-weight: 700;
   font-family: Arial, sans-serif;
 }
@@ -30,46 +32,104 @@
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 0.9rem;
-  font-family: inherit;
+  font-size: 14.4px;
   font-family: Arial, sans-serif;
   font-weight: 500;
   color: #dc2626;
+  text-decoration: underline;
 }
 
 .user {
   text-decoration: none;
-  font-weight: 600;
-  margin-right: 0;
-  font-size: 1.2rem;
+  font-size: 19.2px;
   font-weight: 600;
   font-family: Arial, sans-serif;
   color: #fff;
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  background-color: #00b4d8;
+  background-color: #8672ff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .navbar {
-    padding: 15px;
-    flex-wrap: wrap;
-    gap: 15px;
+    padding: 0 25px;
   }
-
+  .logo {
+    font-size: 28px; 
+  }
   .nav {
-    order: 3;
-    width: 100%;
-    justify-content: center;
     gap: 20px;
   }
-
   .user {
-    margin-left: auto;
+    width: 46px;
+    height: 46px;
+    font-size: 17.6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    min-height: 65px;
+    padding: 0 20px;
+  }
+}
+  .logo {
+    font-size: 24px; 
+  .nav {
+    gap: 15px;
+  }
+  .logoutButton {
+    font-size: 13.6px;
+  }
+  .user {
+    width: 42px;
+    height: 42px;
+    font-size: 16px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    min-height: 60px;
+    padding: 0 15px;
+  }
+  .logo {
+    font-size: 21.6px;
+  }
+  .nav {
+    gap: 12px;
+  }
+  .logoutButton {
+    font-size: 12.8px;
+  }
+  .user {
+    width: 38px;
+    height: 38px;
+    font-size: 15.2px;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar {
+    padding: 0 10px;
+  }
+  .logo {
+    font-size: 18.4px;
+  }
+  .nav {
+    gap: 8px;
+  }
+  .logoutButton {
+    font-size: 12px;
+  }
+  .user {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
   }
 }

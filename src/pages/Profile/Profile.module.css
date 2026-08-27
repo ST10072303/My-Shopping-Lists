@@ -34,7 +34,7 @@
   margin-bottom: 20px;
   color: var(--text-color);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 14px;
   font-weight: 500;
   transition: 150ms ease;
 }
@@ -62,14 +62,14 @@
 
 .header h1 {
   margin: 0;
-  font-size: 2.3rem;
+  font-size: 34px; 
   font-weight: 800;
 }
 
 .header p {
   margin-top: 6px;
   color: #6f6b7d;
-  font-size: 0.95rem;
+  font-size: 15px; 
 }
 
 .section {
@@ -89,14 +89,14 @@
 
 .sectionTitle h2 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 20px; 
   font-weight: 700;
 }
 
 .sectionTitle p {
   margin: 5px 0 0;
   color: #777384;
-  font-size: 0.85rem;
+  font-size: 14px; 
 }
 
 .profileDetails {
@@ -136,13 +136,13 @@
 }
 
 .label {
-  font-size: 0.75rem;
+  font-size: 12px; 
   color: #777384;
   font-weight: 500;
 }
 
 .value {
-  font-size: 0.95rem;
+  font-size: 15.2px; 
   font-weight: 600;
   word-break: break-word;
 }
@@ -163,7 +163,7 @@
   align-items: center;
   gap: 6px;
   margin-bottom: 7px;
-  font-size: 0.85rem;
+  font-size: 13.6px; 
   font-weight: 600;
 }
 
@@ -177,7 +177,7 @@
   height: 48px;
   padding: 0 15px;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 14px; 
   color: var(--text-color);
   background-color: var(--input-color);
   border: 2px solid var(--input-color);
@@ -207,9 +207,8 @@
   padding: 0.75em 1.8em;
   background-color: var(--accent-color);
   color: white;
-
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 14px; 
   font-weight: 600;
   cursor: pointer;
   transition: 150ms ease;
@@ -236,45 +235,39 @@
 .error {
   margin: 5px 0;
   color: #f06272;
-  font-size: 0.85rem;
+  font-size: 14px;
   text-align: center;
 }
 
 .credentialsView {
   width: 100%;
 }
+
 .credentialsView .actions {
   margin-top: 20px;
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 20px 12px;
-  }
-  .profileCard {
-    padding: 30px 20px;
 
-    border-radius: 16px;
-  }
-  .header h1 {
-    font-size: 2rem;
-  }
-  .actions {
-    flex-direction: column;
-  }
+@media screen and (max-width: 768px) {
   .actions button {
-    width: 100%;
+    padding: 8px 18px;
+    font-size: 12px;
+    width: 125px;
   }
 }
 
-@media (max-width: 450px) {
-  .profileCard {
-    padding: 25px 15px;
+@media screen and (max-width: 480px) {
+  .actions button {
+    width: 130px;
+    padding: 10px 18px;
+    font-size: 12px;
   }
-  .header h1 {
-    font-size: 1.7rem;
-  }
-  .detail {
-    align-items: flex-start;
+}
+
+@media screen and (max-width: 320px) {
+  .actions button {
+    padding: 8px 10px;
+    font-size: 10px;
+    font-size: 8px;
   }
 }

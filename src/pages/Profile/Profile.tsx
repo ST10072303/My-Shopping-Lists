@@ -39,7 +39,6 @@ export const Profile = () => {
     if (!user) {
       return;
     }
-
     setError("");
     setIsSaving(true);
 
@@ -72,9 +71,7 @@ export const Profile = () => {
 
     try {
       const updatedUser = await updateUserCredentials(user.id, {email: email.trim(),password});
-
       dispatch(updateUser(updatedUser));
-
       setPassword("");
       setIsEditingCredentials(false);
     } catch (error) {
@@ -107,7 +104,7 @@ export const Profile = () => {
           <p>View and manage your account information.</p>
         </div>
 
-        {/* Profile Information */}
+        {/* View and edit Profile Information */}
         <div className={styles.section}>
           <div className={styles.sectionTitle}>
             <h2>Personal Information</h2>
@@ -142,15 +139,10 @@ export const Profile = () => {
                 {error && (<p className={styles.error} role="alert">{error}</p>)}
 
                 <div className={styles.actions}>
-                  <button type="submit" disabled={isSaving}>{isSaving ? "Saving..." : "Save Changes"}</button>
-
                   <button type="button" className={styles.cancelButton} onClick={() => {
-                      setName(user.name);
-                      setSurname(user.surname);
-                      setCellNumber(user.cellNumber);
-                      setError("");
-                      setIsEditing(false);
-                    }}disabled={isSaving}>Cancel</button>
+                      setName(user.name); setSurname(user.surname); setCellNumber(user.cellNumber);
+                      setError(""); setIsEditing(false); }}disabled={isSaving}>Cancel</button>
+                      <button type="submit" disabled={isSaving}>{isSaving ? "Saving..." : "Save Changes"}</button>
                 </div>
               </form>
             ) : (
@@ -203,13 +195,9 @@ export const Profile = () => {
 
           {!isEditing && (
             <div className={styles.actions}>
-              <button type="button" onClick={() => {
-                  setName(user.name);
-                  setSurname(user.surname);
-                  setCellNumber(user.cellNumber);
-                  setError("");
-                  setIsEditing(true);
-                }}>Edit Profile</button>
+              <button type="button" onClick={() => {setName(user.name);
+                  setSurname(user.surname); setCellNumber(user.cellNumber);
+                  setError(""); setIsEditing(true); }}>Edit Profile</button>
             </div>
           )}
         </div>
@@ -242,15 +230,13 @@ export const Profile = () => {
               {credentialError && (<p className={styles.error}role="alert">{credentialError}</p>)}
 
               <div className={styles.actions}>
-                <button type="submit" disabled={isSavingCredentials}>
-                  {isSavingCredentials ? "Saving..." : "Save Credentials"} </button>
+                <button type="button" className={styles.cancelButton} disabled={isSavingCredentials}
+                onClick={() => {setEmail(user.email); setPassword(""); setCredentialError("");
+                setIsEditingCredentials(false);}}>Cancel</button>
 
-                <button type="button" className={styles.cancelButton}
-                  disabled={isSavingCredentials} onClick={() => {
-                    setEmail(user.email);
-                    setPassword("");
-                    setCredentialError("");
-                    setIsEditingCredentials(false);}}>Cancel</button>
+                <button type="submit" disabled={isSavingCredentials}>
+                  {isSavingCredentials ? "Saving..." : "Save Changes"} </button>
+
               </div>
             </form>
           ) : (
@@ -281,10 +267,8 @@ export const Profile = () => {
               </div>
 
               <div className={styles.actions}>
-                <button type="button" onClick={() => {
-                    setEmail(user.email);
-                    setPassword("");
-                    setCredentialError("");
+                <button type="button" onClick={() => {setEmail(user.email);
+                    setPassword(""); setCredentialError("");
                     setIsEditingCredentials(true);}}>Edit Login</button>
               </div>
             </div>
