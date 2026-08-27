@@ -33,7 +33,6 @@ JSON Server             Pixabay API
  |                         |
 db.json                Item Images
 
-
 ## Features
 
 ### User Management
