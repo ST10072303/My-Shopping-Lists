@@ -121,17 +121,17 @@
       ]
     },
     {
-      "id": "zhgrNZtf6ig",
+      "id": "WYpCw-nwVMc",
       "userId": "MtCkbex02WY",
       "name": "Winter Clothes",
-      "notes": "Clothes for cold winter weather",
+      "notes": "Warm clothes for the cold winter weather",
       "items": [
         {
-          "id": "88240ef8-83bb-4901-86db-43ccbadb6683",
-          "name": "Hoody",
+          "id": "ae0129c9-6774-4226-bddf-d1f8626e5348",
+          "name": "Boots",
           "quantity": 1,
           "category": "Clothes",
-          "image": "https://pixabay.com/get/gfbe6d052793e6acd2941d6d89a5fa6f79acaffa8a4aac2101c9cf0f548503b8756b2361d865d19f30d8b8b64e99a4c0c16daa470f0c836ea2f624137fa860075_640.jpg"
+          "image": "https://pixabay.com/get/gda78d6ffa4d31e18b8c65b15ab81e51cab2ab95299f4fb6c571aa9b1f5002068a0e6913fd5cae03c56864d44d6eda4a59999a55dae56e219cf3fe74f41dbc130_640.jpg"
         }
       ]
     }

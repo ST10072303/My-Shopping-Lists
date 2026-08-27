@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { ShoppingList } from "../types/ShoppingItem";
 
-const API_URL = "http://localhost:3001/shoppingLists";
+const API_URL = `${import.meta.env.VITE_API_URL}/shoppingLists`;
 //read
 export const getShoppingLists = async (
   userId: string

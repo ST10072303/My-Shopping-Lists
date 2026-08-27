@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 import type { User } from "../types";
 
-const API_URL = "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const registerUser = async (
   user: Omit<User, "id">
