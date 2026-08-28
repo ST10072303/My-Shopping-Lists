@@ -29,7 +29,9 @@ export const deleteShoppingList = async (id: string): Promise<void> => {
 };
 
 //sharing function
+// Get one shopping list by ID for sharing
 export const getShoppingListById = async (id: string): Promise<ShoppingList> => {
   const response = await axios.get<ShoppingList>(`${API_URL}/${id}`);
+
   return response.data;
 };
