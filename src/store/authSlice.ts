@@ -13,10 +13,7 @@ const initialState: AuthState = {
   isAuthenticated: savedUser !== null,
 };
 
-const authSlice = createSlice({
-  name: "auth", initialState,
-  reducers: {
-    login: (state, action: PayloadAction<User>) => {
+const authSlice = createSlice({name: "auth", initialState, reducers: {login: (state, action: PayloadAction<User>) => {
   state.user = action.payload;
   state.isAuthenticated = true;
 //save & remember logged-in user
@@ -30,10 +27,8 @@ const authSlice = createSlice({
   localStorage.removeItem("shoppingAppUser");
 },
 
-    updateUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
-    },
-  },
+    updateUser: (state, action: PayloadAction<User>) => {state.user = action.payload;},
+},
 });
 
 export const { login, logout, updateUser } = authSlice.actions;

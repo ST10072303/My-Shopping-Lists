@@ -1,32 +1,25 @@
 import axios from "axios";
 import bcrypt from "bcryptjs";
-
 import type { User } from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const registerUser = async (
-  user: Omit<User, "id">
-): Promise<User> => {
+// user register
+export const registerUser = async (user: Omit<User, "id"> ): Promise<User> => {
   const existingUsers = await axios.get<User[]>(`${API_URL}/users`,
-    {
-      params: {
-        email: user.email,
-      },
-    }
+    {params: {email: user.email,},}
   );
 
   if (existingUsers.data.length > 0) {
     throw new Error("An account with this email already exists.");
   }
-
   const hashedPassword = await bcrypt.hash(user.password, 10);
   const newUser = {...user, password: hashedPassword,};
-  const response = await axios.post<User>(
-    `${API_URL}/users`, newUser);
+  const response = await axios.post<User>(`${API_URL}/users`, newUser);
 
   return response.data;
 };
+
 // login user
 export const loginUser = async (email: string, password: string ): Promise<User> => {
   const response = await axios.get<User[]>(
@@ -44,20 +37,16 @@ export const loginUser = async (email: string, password: string ): Promise<User>
   }
   return user;
 };
+
 //update profile
-export interface UpdateProfileData {
-  name: string;
-  surname: string;
-  cellNumber: string;
-}
+export interface UpdateProfileData {name: string; surname: string; cellNumber: string;}
+
 //update function
 export const updateUserProfile = async (userId: string, profileData: UpdateProfileData): Promise<User> => {
   const response = await fetch(`${API_URL}/users/${userId}`,
     {
       method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {"Content-Type": "application/json",},
       body: JSON.stringify(profileData),
     });
 
@@ -66,11 +55,9 @@ export const updateUserProfile = async (userId: string, profileData: UpdateProfi
   }
   return response.json();
 };
+
 //update login credencials
-export interface UpdateCredentialsData {
-  email: string;
-  password: string;
-}
+export interface UpdateCredentialsData {email: string; password: string;}
 
 export const updateUserCredentials = async (userId: string, credentials: UpdateCredentialsData): Promise<User> => {
   const existingUsers = await axios.get<User[]>(`${API_URL}/users`,
@@ -78,6 +65,7 @@ export const updateUserCredentials = async (userId: string, credentials: UpdateC
       params: {email: credentials.email,},
     }
   );
+
 //two accounts should not use same email
   const emailBelongsToAnotherUser =
     existingUsers.data.some((existingUser) => existingUser.id !== userId);

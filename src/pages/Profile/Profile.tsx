@@ -8,7 +8,9 @@ import { NavLink } from "react-router-dom";
 import { ArrowLeft, User, Mail, Phone, Lock } from "lucide-react";
 
 export const Profile = () => {
+  // getting user object from Redux auth state slice
   const user = useSelector((state: RootState) => state.auth.user);
+  // Getting Redux dispatch function to update global state
   const dispatch = useDispatch();
 
   if (!user) {
@@ -26,16 +28,21 @@ export const Profile = () => {
   const [name, setName] = useState(user.name ?? "");
   const [surname, setSurname] = useState(user.surname ?? "");
   const [cellNumber, setCellNumber] = useState(user.cellNumber ?? "");
+  // Loading and error states for profile form submission
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
+  // State for toggling login credentials edit mode
   const [isEditingCredentials, setIsEditingCredentials] = useState(false);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState("");
+  // Loading and error states for credentials form submission
   const [credentialError, setCredentialError] = useState("");
   const [isSavingCredentials, setIsSavingCredentials] = useState(false);
-  const handleSaveProfile = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
 
+  const handleSaveProfile = async (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent default browser form refresh 
+    event.preventDefault();
+    // Guard clause: ensure user object exists
     if (!user) {
       return;
     }
@@ -48,7 +55,7 @@ export const Profile = () => {
         surname: surname.trim(),
         cellNumber: cellNumber.trim(),
       });
-
+      // Update Redux state with new user details returned
       dispatch(updateUser(updatedUser));
       setIsEditing(false);
     } catch (error) {
@@ -58,7 +65,7 @@ export const Profile = () => {
       setIsSaving(false);
     }
   };
-
+// Submit updated login credentials (email, password)
   const handleSaveCredentials = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -71,8 +78,10 @@ export const Profile = () => {
 
     try {
       const updatedUser = await updateUserCredentials(user.id, {email: email.trim(),password});
+      // Update Redux state with new user credentials 
       dispatch(updateUser(updatedUser));
       setPassword("");
+      // hide edit details form
       setIsEditingCredentials(false);
     } catch (error) {
       console.error("Failed to update credentials:", error);

@@ -16,10 +16,13 @@ import { LuPencil, LuShare2, LuTrash2 } from "react-icons/lu";
 
 export const Home = () => {
   const [showAddForm, setShowAddForm] = useState(false);
+  // React Router hook to synchronize search and sort state with the URL query string
   const [searchParams, setSearchParams] = useSearchParams();
   const searchKeyword = searchParams.get("search") ?? "";
   const sortKeyword = searchParams.get("sort") ?? "";
+  // Track the specific ShoppingList object being edited in the modal
   const [editingList, setEditingList] = useState<ShoppingList | null>(null);
+  // Redux hooks setup
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.auth.user);
   const shoppingLists = useSelector((state: RootState) => state.shoppingLists.lists);
@@ -28,12 +31,13 @@ export const Home = () => {
   //search and sort feature
   const filteredShoppingLists = shoppingLists.map((list) => {
     let filteredItems = list.items;
+    // Filter items matching the search query string (case-insensitive)
     if (searchKeyword.trim()) {
       filteredItems = filteredItems.filter((item) => item.name.toLowerCase()
           .includes(searchKeyword.toLowerCase())
       );
     }
-
+    // Sort items alphabetically by item name
     if (sortKeyword === "name") {
       filteredItems = [...filteredItems].sort((a, b) => a.name.localeCompare(b.name));
     }
@@ -41,21 +45,26 @@ export const Home = () => {
     if (sortKeyword === "category") {
       filteredItems = [...filteredItems].sort((a, b) => a.category.localeCompare(b.category));
     }
+    // Retur list with updated filtered/sorted items
     return { ...list, items: filteredItems, };
   })
     .filter(
       (list) => list.items.length > 0
     );
-  //create function
+  //create a new shopping list function
   const handleSaveShoppingList = async (shoppingList: ShoppingList) => {
     if (!user) {
       return;
     }
 
     try {
+      // Attach active user's ID to the new shopping list object
       const listToSave: ShoppingList = { ...shoppingList, userId: user.id, };
+      // Save new list to backend database
       const savedList = await createShoppingList(listToSave);
+      // Update global Redux store state
       dispatch(addShoppingList(savedList));
+      // Hide the creation form on success
       setShowAddForm(false);
     } catch (error) {
       console.error("Failed to create shopping list:", error);
@@ -65,12 +74,14 @@ export const Home = () => {
       );
     }
   };
-  //updated function
+  // Handles updating an existing shopping list.
   const handleUpdateShoppingList = async (shoppingList: ShoppingList) => {
     try {
+      // Send updated list 
       const editingList = await updateShoppingList(shoppingList);
-
+      // Dispatch updated list object to Redux store
       dispatch(updateShoppingListState(editingList));
+      // Close the edit modal
       setEditingList(null);
     } catch (error) {
       console.error("Failed to update shopping list:", error);
@@ -79,7 +90,7 @@ export const Home = () => {
         setError("Unable to update shopping list. Please try again."));
     }
   };
-  //delete function
+  // handle delete a shoppinh list 
   const handleDeleteShoppingList = async (id: string) => {
     const confirmed = window.confirm("Are you sure you want to delete this shopping list?");
 
@@ -88,9 +99,11 @@ export const Home = () => {
     }
 
     try {
+      // Call to remove list record
       await deleteShoppingList(id);
 
       dispatch(
+        // Remove item from global Redux store state
         deleteShoppingListState(id)
       );
     } catch (error) {
@@ -100,12 +113,13 @@ export const Home = () => {
         setError("Unable to delete shopping list. Please try again."));
     }
   };
-  //share function
+  // Shares a shopping list link using the Web Share
   const handleShareShoppingList = async (list: ShoppingList) => {
     const shareUrl = `${window.location.origin}/share/${list.id}`;
     const shareData = { title: list.name, text: `Check out my shopping list: ${list.name}`, url: shareUrl, };
 
     try {
+      // Use native browser share sheet if supported
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
@@ -117,16 +131,19 @@ export const Home = () => {
       console.error("Failed to share shopping list:", error);
     }
   };
-  //Read function
+  // Fetches the user's shopping lists from backend services and updates Redux state
   const loadShoppingLists = async () => {
+    // Guard clause: exit if user object is not available yet
     if (!user) {
       return;
     }
     try {
+      // Activate loading spinner indicator and reset existing errors
       dispatch(setLoading(true));
       dispatch(setError(null));
-
+      // Fetch user's shopping lists
       const lists = await getShoppingLists(user.id);
+      // Store returned list records in Redux state
       dispatch(setShoppingLists(lists));
     } catch (error) {
       console.error("Failed to load shopping lists:", error);
@@ -135,6 +152,7 @@ export const Home = () => {
         setError("Unable to load shopping lists. Please check your internet connection and try again."));
       //make loading state to not get stuck
     } finally {
+      // Reset loading flag inside finally block to prevent UI state from getting stuck
       dispatch(setLoading(false));
     }
   };

@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// api end point
 const PIXABAY_API_URL = "https://pixabay.com/api/";
 const PIXABAY_API_KEY = import.meta.env.VITE_PIXABAY_API_KEY;
 
@@ -17,7 +17,7 @@ interface PixabayResponse {
   totalHits: number;
   hits: PixabayImage[];
 }
-
+// function query for images matching search string and returning Images
 export const searchPixabayImages = async (searchTerm: string ): Promise<PixabayImage[]> => {
   if (!PIXABAY_API_KEY) {
     throw new Error("Pixabay API key is not configured.");
@@ -26,9 +26,8 @@ export const searchPixabayImages = async (searchTerm: string ): Promise<PixabayI
   if (!searchTerm.trim()) {
     return [];
   }
-
-  const response =
-    await axios.get<PixabayResponse>(PIXABAY_API_URL,
+// pictures API response
+  const response = await axios.get<PixabayResponse>(PIXABAY_API_URL,
       {
         params: {
           key: PIXABAY_API_KEY,

@@ -7,35 +7,37 @@ interface AddShoppingListProps {
   onCancel: () => void;
   onSave: (shoppingList: ShoppingList) => void;
 }
-
+// creating new shoping list
 export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => {
   const [listName, setListName] = useState("");
   const [notes, setNotes] = useState("");
+  // Current single item entry form states
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
   const [imageSearch, setImageSearch] = useState("");
+  // Pixabay image search UI states
   const [pixabayImages, setPixabayImages] = useState<PixabayImage[]>([]);
   const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [imageSearchError, setImageSearchError] = useState("");
-
   const [items, setItems] = useState<ShoppingItem[]>([]);
 
-  //fetch image
+  //fetch image based on mageSearch query
   const handleSearchImages = async () => {
+    // Guard clause: stop if query is empty or whitespace
     if (!imageSearch.trim()) {
       return;
     }
     setImageSearchError("");
     setIsSearchingImages(true);
     try {
+      // Query Pixabay API service with trimmed search keyword
       const results = await searchPixabayImages(imageSearch.trim());
 
       setPixabayImages(results);
     } catch (error) {
       console.error("Failed to search Pixabay images:", error);
-
       setImageSearchError("Unable to search for images. Please try again.");
     } finally {
       setIsSearchingImages(false);
@@ -43,14 +45,15 @@ export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => 
   };
 
   const handleAddItem = () => {
+    // Guard clause: require valid item name
     if (!itemName.trim()) {
       return;
     }
-
+    // Guard clause: require selected category
     if (!category) {
       return;
     }
-
+    // Create item object with unique ID and current form values
     const newItem: ShoppingItem = {
       id: crypto.randomUUID(),
       name: itemName.trim(),
@@ -60,19 +63,18 @@ export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => 
     };
 
     setItems((currentItems) => [...currentItems, newItem,]);
-
     setItemName("");
     setQuantity(1);
     setCategory("");
     setImage("");
   };
-
+  //Remove item from the temporary `items` array by its unique ID.
   const handleRemoveItem = (itemId: string) => {
     setItems((currentItems) =>
       currentItems.filter((item) => item.id !== itemId)
     );
   };
-
+  // Validates list requirements and trigger the onSave parent callback.
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -83,7 +85,7 @@ export const AddShoppingList = ({ onCancel, onSave, }: AddShoppingListProps) => 
     if (items.length === 0) {
       return;
     }
-
+    // Assembling final ShoppingList object
     const newShoppingList: ShoppingList = {
       id: crypto.randomUUID(),
       userId: "",

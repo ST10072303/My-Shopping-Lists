@@ -26,7 +26,7 @@
       "notes": "Bread baking item for my banana bread",
       "items": [
         {
-          "id": "ae77c2e8-6edf-46c1-bd22-b2680c1606e4",
+          "id": "ae77c2e8-6edf-46c1-bd22-b2680mec1606e4",
           "name": "Eggs",
           "quantity": 6,
           "category": "Groceries",
@@ -132,6 +132,13 @@
           "quantity": 1,
           "category": "Clothes",
           "image": "https://pixabay.com/get/gda78d6ffa4d31e18b8c65b15ab81e51cab2ab95299f4fb6c571aa9b1f5002068a0e6913fd5cae03c56864d44d6eda4a59999a55dae56e219cf3fe74f41dbc130_640.jpg"
+        },
+        {
+          "id": "0048e7d8-9854-48b5-b0eb-ca09e894876e",
+          "name": "Scurf",
+          "quantity": 1,
+          "category": "Other",
+          "image": "https://pixabay.com/get/g045334b48f6f4938d03eceeb73c59f5ea78e9c8dbc26895f61cf7f7b766cb633128e377df07b9a84138311b8cb82904d3616c177ab1751be0695b8254001cef4_640.jpg"
         }
       ]
     }

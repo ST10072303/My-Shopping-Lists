@@ -3,9 +3,7 @@ import type { ShoppingList } from "../types/ShoppingItem";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/shoppingLists`;
 //read
-export const getShoppingLists = async (
-  userId: string
-): Promise<ShoppingList[]> => {
+export const getShoppingLists = async (userId: string): Promise<ShoppingList[]> => {
   const response = await axios.get<ShoppingList[]>(`${API_URL}?userId=${userId}`);
   return response.data;
 };

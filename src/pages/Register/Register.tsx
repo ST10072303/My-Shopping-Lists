@@ -6,12 +6,15 @@ import { LuKeyRound, LuMail, LuPhone, LuSquareUser, LuUser, LuUserRoundPlus } fr
 
 export const Register = () => {
   const navigate = useNavigate();
+  // Unified object state to track all registration input field values
   const [formData, setFormData] = useState({email: "", password: "", name: "", surname: "", cellNumber: "",});
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  // change handler for all text input fields.
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = event.target;
-
+    // copying previous form state and replace only the target field property
   setFormData((previous) => ({...previous, [name]: value,}));
   };
 
@@ -27,6 +30,7 @@ export const Register = () => {
     }
 
     try {
+      // Call async authentication service to register user
       await registerUser(formData);
       setSuccess("Account created successfully!");
       setTimeout(() => {navigate("/");}, 1000);

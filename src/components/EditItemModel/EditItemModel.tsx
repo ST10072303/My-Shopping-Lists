@@ -13,18 +13,20 @@ export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppi
   const [listName, setListName] = useState(shoppingList.name);
   const [notes, setNotes] = useState(shoppingList.notes ?? "");
   const [items, setItems] = useState<ShoppingItem[]>(shoppingList.items);
+  // Local state for "Add New Item" form fields
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
-  //api image
+  // Local state for Pixabay image search function
   const [imageSearch, setImageSearch] = useState("");
   const [pixabayImages, setPixabayImages] = useState<PixabayImage[]>([]);
   const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [imageSearchError, setImageSearchError] = useState("");
 
-  // searched image
+  // Queries Pixabay API for images matching the typed search term.
   const handleSearchImages = async () => {
+    // Guard clause: Exit early if search input is empty or only whitespace
     if (!imageSearch.trim()) {
       return;
     }
@@ -32,6 +34,7 @@ export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppi
     setIsSearchingImages(true);
 
     try {
+      // Execute API request to fetch matching Pixabay images
       const results = await searchPixabayImages(imageSearch.trim());
 
       setPixabayImages(results);
@@ -40,15 +43,16 @@ export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppi
 
       setImageSearchError("Unable to search for images. Please try again.");
     } finally {
+      // Turn off loading indicator regardless of success or failure
       setIsSearchingImages(false);
     }
   };
-  // add item
+  // Validate new item fields appends item to local list state, and resets form & image search state.
   const handleAddItem = () => {
     if (!itemName.trim() || !category) {
       return;
     }
-
+    // Create a new ShoppingItem object with a generated ID
     const newItem: ShoppingItem = {
       id: crypto.randomUUID(),
       name: itemName.trim(),
@@ -56,8 +60,9 @@ export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppi
       category,
       image,
     };
-
+    // Append new item to current items state array
     setItems((currentItems) => [...currentItems, newItem,]);
+
     setItemName("");
     setQuantity(1);
     setCategory("");
@@ -70,14 +75,15 @@ export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppi
   const handleRemoveItem = (itemId: string) => {
     setItems((currentItems) => currentItems.filter((item) => item.id !== itemId));
   };
-
+  // Validates inputs creates updated ShoppingList and triggers onSave
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!listName.trim() || items.length === 0) {
       return;
     }
-
+    // keep original list properties while overriding updated fields
     const updatedList: ShoppingList = { ...shoppingList, name: listName.trim(), notes: notes.trim(), items, };
+    // Pass the updated shopping list to the parent container
     onSave(updatedList);
   };
 
@@ -123,14 +129,12 @@ export const EditShoppingList = ({ shoppingList, onCancel, onSave, }: EditShoppi
 
                 <select value={category} onChange={(event) => setCategory(event.target.value)}>
                   <option value="">Select category</option>
-                  <option value="Groceries">Groceries</option>
-                  <option value="Dairy">Dairy</option>
-                  <option value="Fruit">Fruits</option>
-                  <option value="Vegetables">Vegetables</option>
-                  <option value="Bakery">Bakery</option>
-                  <option value="Meat">Meat</option>
+                 <option value="Groceries">Groceries</option>
+                  <option value="Clothes">Clothes</option>
+                  <option value="Tools">Tools</option>
                   <option value="Gaming">Gaming</option>
                   <option value="Electronics">Electronics</option>
+                  <option value="Other">Personal</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
