@@ -2,7 +2,7 @@ import axios from "axios";
 import bcrypt from "bcryptjs";
 import type { User } from "../types";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
 // user register
 export const registerUser = async (user: Omit<User, "id"> ): Promise<User> => {
